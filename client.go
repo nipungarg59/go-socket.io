@@ -66,6 +66,11 @@ func (c *Client) Connect() error {
 		Transports: []transport.Transport{polling.Default},
 	}
 
+	// Use opts Transports when NewClient
+	if len(c.opts.Transports) > 0 {
+		dialer.Transports = c.opts.Transports
+	}
+
 	enginioCon, err := dialer.Dial(c.url, nil)
 	if err != nil {
 		return err
